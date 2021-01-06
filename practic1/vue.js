@@ -3,8 +3,6 @@ const App = {
   data() {
     return {
       activeIndex: 0,
-      prevBtn: 'Назад',
-      nextBtn: 'Вперед',
       endSteps: false,
       steps: [
         {title: 'Основы', text: 'В блоке вы познакомитесь со всеми основами Vue.js на практике. На протяжении блока мы напишем реактивное приложение, в процессе разработки которого разберем вся базу фреймворка.'},
@@ -17,7 +15,9 @@ const App = {
   },
   methods: {
     prev() {
-      this.activeIndex--
+      if (this.activeIndex !== 0){
+        this.activeIndex--
+      }
     },
     reset() {
       this.activeIndex = 0
@@ -30,7 +30,7 @@ const App = {
         this.activeIndex++
       } else {
         this.endSteps = true
-        this.prevBtn = 'Начать заново'
+        
       }
     },
     setActive(idx) {
@@ -46,17 +46,22 @@ const App = {
     // 3. находимся ли мы на последнем шаге
     lastStep(){
       return this.steps.length == this.activeIndex + 1
-    }
-  },
-  watch: {
-    lastStep(val) {
-      if (val) {
-        this.nextBtn = "Закончить"
+    },
+    prevBtn(){
+      if (this.endSteps) {
+        return 'Начать заново'
       } else {
-        this.nextBtn = 'Вперед'
+        return 'Назад'
+      }
+    },
+    nextBtn(){
+      if (this.lastStep) {
+        return 'Закончить'
+      } else {
+        return 'Вперед'
       }
     }
-  }
+  },
 }
 
 Vue.createApp(App).mount('#app')
