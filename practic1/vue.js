@@ -21,8 +21,6 @@ const App = {
     },
     reset() {
       this.activeIndex = 0
-      this.prevBtn = 'Назад'
-      this.nextBtn = 'Вперед'
       this.endSteps = false
     },
     nextOfFinish() {
@@ -40,26 +38,14 @@ const App = {
     }
   },
   computed: {
-    // тут стоит определить несколько свойств:
-    // 1. текущий выбранный шаг
-    // 2. выключена ли кнопка назад
-    // 3. находимся ли мы на последнем шаге
     lastStep(){
       return this.steps.length == this.activeIndex + 1
     },
     prevBtn(){
-      if (this.endSteps) {
-        return 'Начать заново'
-      } else {
-        return 'Назад'
-      }
+      return this.endSteps ? 'Начать заново' : 'Назад'
     },
     nextBtn(){
-      if (this.lastStep) {
-        return 'Закончить'
-      } else {
-        return 'Вперед'
-      }
+      return this.lastStep ? 'Закончить' : 'Вперед'
     }
   },
 }
